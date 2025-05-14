@@ -42,6 +42,11 @@ jobs:
 
       - name: Update deployment image tag in GitOps repo
         run: |
+          echo $PWD
+          ls -l
+
+      - name: Update deployment image tag in GitOps repo
+        run: |
           IMAGE_TAG=${{ github.sha }}
           sed -i "s|image:.*|image: ${{ secrets.ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:$IMAGE_TAG|" base/deployment.yaml
 
