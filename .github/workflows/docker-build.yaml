@@ -43,11 +43,10 @@ jobs:
       - name: Update deployment image tag in GitOps repo
         run: |
           IMAGE_TAG=${{ github.sha }}
-          sed -i "s|image:.*|image: ${{ secrets.ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:$IMAGE_TAG|" aks-gitops/base/deployment.yaml
+          sed -i "s|image:.*|image: ${{ secrets.ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:$IMAGE_TAG|" base/deployment.yaml
 
       - name: Commit and push updated manifest
         run: |
-          cd aks-gitops
           git config user.name "GitOps Bot"
           git config user.email "gitops@ci.local"
           git commit -am "Update image tag to $IMAGE_TAG"
